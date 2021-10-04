@@ -6,7 +6,5 @@ namespace: argocd
 resources:
   - argocd-secret.yaml
   # custom
-  - gitlab-cd-creds.yaml
-
 commonLabels:
   group: secrets

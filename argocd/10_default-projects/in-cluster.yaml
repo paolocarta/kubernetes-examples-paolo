@@ -12,6 +12,6 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - https://gitlab.com/devops
+    - https://github.com/paolocarta/kubernetes-examples-paolo.git
   orphanedResources:
       warn: true
