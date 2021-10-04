@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - default.yaml
+  - in-cluster.yaml
+
+commonLabels:
+  group: projects
+
+commonAnnotations:
+  managed-by: argocd.argoproj.io
+  argoCDVersion: "2.0.3"

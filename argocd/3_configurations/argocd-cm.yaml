@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+data:
+  # See https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/
+  # local users
+  # accounts.matteo: login # example
+  accounts.viewer: login
+  accounts.viewer.enabled: "true" # a user is enabled by default
+
+  # repositories
+  repositories: |
+    - url: https://github/cicd-devops.git
+    
+  # repository.credentials: |
+  #   - url: https://gitlab.com/devops
+  #     usernameSecret:
+  #       name: gitlab-cd-creds
+  #       key: username
+  #     passwordSecret:
+  #       name: gitlab-cd-creds
+  #       key: password

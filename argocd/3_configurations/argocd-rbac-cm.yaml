@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+data:
+  # See https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/
+
+  # GENERAL
+
+  # scopes: '[email, group]' # alternative
+
+  # POLICIES
+
+  # Default policy
+  policy.default: role:readonly
+
+  # Policy rules are in the form:
+  #   p, subject(1), resource(2), action(3), appProject/object(4), effect(5)
+  #   (1) available subjects: role, user, group
+  #   (2) available resources: clusters, projects, applications, repositories, certificates, accounts, gpgkeys
+  #   (3) available actions: get, create, update, delete, sync, override, action
+  #   (4) available objects: ???
+  #   (5) available effects: allow, ???
+  # Role definitions and bindings are in the form:
+  #   g, subject, inherited-subject
+
+  # Examples:
+  # policy.csv: |
+  #   p, role:qa,  applications, *, */*, allow
+  #   p, role:dev, applications, *, */*, allow
+  #   p, role:dev, projects, *, *, allow
+  #   p, role:dev, repositories, *, *, allow
+  #   g, adminuser, role:admin
+  #   g, devuser, role:dev
+  #   g, qauser, role:qa
+

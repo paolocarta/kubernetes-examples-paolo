@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-repo-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argocd-repo-server
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: argocd-repo-server
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/part-of: argocd
+                topologyKey: kubernetes.io/hostname
+              weight: 5
+      # automountServiceAccountToken: false
+      serviceAccountName: argocd-repo-server
+      containers:
+        - command:
+            - uid_entrypoint.sh
+            - argocd-repo-server
+            - --redis
+            - argocd-redis:6379
+          image: quay.io/argoproj/argocd:v2.0.3@sha256:a2888d810d0741fe009b4ee4f4e7e76750be8e8732b05fe3f954e0ae319f7a61
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz?full=true
+              port: 8084
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          name: argocd-repo-server
+          ports:
+            - containerPort: 8081
+            - containerPort: 8084
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8084
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - all
+          volumeMounts:
+            - mountPath: /app/config/ssh
+              name: ssh-known-hosts
+            - mountPath: /app/config/tls
+              name: tls-certs
+            - mountPath: /app/config/gpg/source
+              name: gpg-keys
+            - mountPath: /app/config/gpg/keys
+              name: gpg-keyring
+            - mountPath: /app/config/reposerver/tls
+              name: argocd-repo-server-tls
+      volumes:
+        - configMap:
+            name: argocd-ssh-known-hosts-cm
+          name: ssh-known-hosts
+        - configMap:
+            name: argocd-tls-certs-cm
+          name: tls-certs
+        - configMap:
+            name: argocd-gpg-keys-cm
+          name: gpg-keys
+        - emptyDir: {}
+          name: gpg-keyring
+        - name: argocd-repo-server-tls
+          secret:
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+              - key: ca.crt
+                path: ca.crt
+            optional: true
+            secretName: argocd-repo-server-tls

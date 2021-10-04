@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: in-cluster
+spec:
+  description: Project related to CI/CD in-cluster
+  destinations:
+    - name: in-cluster
+      server: https://kubernetes.default.svc
+      namespace: "*"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  sourceRepos:
+    - https://gitlab.com/devops
+  orphanedResources:
+      warn: true

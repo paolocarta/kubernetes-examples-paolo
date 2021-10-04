@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - 1_namespace/
+  - 2_crds/
+  - 3_configurations/
+  - 3_secrets/
+  - 4_application-controller/
+  - 4_dex-server/
+  - 4_redis/
+  - 4_repo-server/
+  - 4_server/
+  - 5_metrics-services/
+  - 10_default-projects/
+
+commonLabels:
+  app: argocd
+  domain: cd
+  # required by argocd
+  app.kubernetes.io/part-of: argocd
+
+commonAnnotations:
+  managed-by: argocd.argoproj.io
+  argoCDVersion: "2.0.3"

@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-to-api-server
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            # In order to replace this value, use the makefile inside the parent folder.
+            cidr: 172.16.0.2/32
+      ports:
+        - protocol: TCP
+          port: 443

@@ -1,0 +1,118 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"monitoring.coreos.com/v1","kind":"Prometheus","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"prometheus","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"2.26.0","prometheus":"k8s"},"name":"k8s","namespace":"monitoring-system"},"spec":{"alerting":{"alertmanagers":[{"apiVersion":"v2","name":"alertmanager-main","namespace":"monitoring-system","port":"web"}]},"externalLabels":{},"image":"quay.io/prometheus/prometheus:v2.26.0","nodeSelector":{"kubernetes.io/os":"linux"},"podMetadata":{"labels":{"app.kubernetes.io/component":"prometheus","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"2.26.0"}},"podMonitorNamespaceSelector":{},"podMonitorSelector":{},"probeNamespaceSelector":{},"probeSelector":{},"replicas":1,"resources":{"requests":{"memory":"400Mi"}},"ruleNamespaceSelector":{},"ruleSelector":{"matchLabels":{"prometheus":"k8s","role":"alert-rules"}},"securityContext":{"fsGroup":2000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"prometheus-k8s","serviceMonitorNamespaceSelector":{},"serviceMonitorSelector":{},"version":"2.26.0"}}
+  creationTimestamp: "2021-09-10T12:23:01Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/component: prometheus
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 2.26.0
+    prometheus: k8s
+  managedFields:
+  - apiVersion: monitoring.coreos.com/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:labels:
+          .: {}
+          f:app.kubernetes.io/component: {}
+          f:app.kubernetes.io/name: {}
+          f:app.kubernetes.io/part-of: {}
+          f:app.kubernetes.io/version: {}
+          f:prometheus: {}
+      f:spec:
+        .: {}
+        f:alerting:
+          .: {}
+          f:alertmanagers: {}
+        f:externalLabels: {}
+        f:image: {}
+        f:nodeSelector:
+          .: {}
+          f:kubernetes.io/os: {}
+        f:podMetadata:
+          .: {}
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/component: {}
+            f:app.kubernetes.io/name: {}
+            f:app.kubernetes.io/part-of: {}
+            f:app.kubernetes.io/version: {}
+        f:podMonitorNamespaceSelector: {}
+        f:podMonitorSelector: {}
+        f:probeNamespaceSelector: {}
+        f:probeSelector: {}
+        f:replicas: {}
+        f:resources:
+          .: {}
+          f:requests:
+            .: {}
+            f:memory: {}
+        f:ruleNamespaceSelector: {}
+        f:ruleSelector:
+          .: {}
+          f:matchLabels:
+            .: {}
+            f:prometheus: {}
+            f:role: {}
+        f:securityContext:
+          .: {}
+          f:fsGroup: {}
+          f:runAsNonRoot: {}
+          f:runAsUser: {}
+        f:serviceAccountName: {}
+        f:serviceMonitorNamespaceSelector: {}
+        f:serviceMonitorSelector: {}
+        f:version: {}
+    manager: kubectl
+    operation: Update
+    time: "2021-09-10T12:23:01Z"
+  name: k8s
+  namespace: monitoring-system
+  resourceVersion: "283019"
+  uid: 4e223a1b-d3fc-425f-b280-722c6b3adfae
+spec:
+  alerting:
+    alertmanagers:
+    - apiVersion: v2
+      name: alertmanager-main
+      namespace: monitoring-system
+      port: web
+  externalLabels: {}
+  image: quay.io/prometheus/prometheus:v2.26.0
+  nodeSelector:
+    kubernetes.io/os: linux
+  podMetadata:
+    labels:
+      app.kubernetes.io/component: prometheus
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 2.26.0
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  probeNamespaceSelector: {}
+  probeSelector: {}
+  replicas: 1
+  resources:
+    requests:
+      memory: 400Mi
+  ruleNamespaceSelector: {}
+  ruleSelector:
+    matchLabels:
+      prometheus: k8s
+      role: alert-rules
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: prometheus-k8s
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
+  version: 2.26.0

@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: argocd-application-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-application-controller
+  serviceName: argocd-application-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argocd-application-controller
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: argocd-application-controller
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/part-of: argocd
+                topologyKey: kubernetes.io/hostname
+              weight: 5
+      containers:
+        - command:
+            - argocd-application-controller
+            - --status-processors
+            - "20"
+            - --operation-processors
+            - "10"
+          image: quay.io/argoproj/argocd:v2.0.3@sha256:a2888d810d0741fe009b4ee4f4e7e76750be8e8732b05fe3f954e0ae319f7a61
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          name: argocd-application-controller
+          ports:
+            - containerPort: 8082
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          ### start custom ###
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 100
+            runAsNonRoot: true
+          ### end custom ###
+          volumeMounts:
+            - mountPath: /app/config/controller/tls
+              name: argocd-repo-server-tls
+      ### start custom ###
+      securityContext:
+        fsGroup: 1
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups:
+        - 1
+      ### end custom ###
+      serviceAccountName: argocd-application-controller
+      volumes:
+        - name: argocd-repo-server-tls
+          secret:
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+              - key: ca.crt
+                path: ca.crt
+            optional: true
+            secretName: argocd-repo-server-tls

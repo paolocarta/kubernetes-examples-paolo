@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-creds
+  labels:
+    component: credentials
+    resource: repo
+type: Opaque
+stringData:
+  username: cicd-bot
+  password: dsasdas-dasdgn31-sddas

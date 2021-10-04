@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: reloader
+
+resources:
+  - rbac.yaml
+  - deployment.yaml
+  - service.yaml
+
+commonLabels:
+  app: reloader-reloader
+  domain: infra
+
+commonAnnotations:
+  version: v0.0.99
+
+images:
+  - name: stakater/reloader
+    digest: sha256:c2b2873c0b9aeaced969630eabc3a7d1f9bd92652687d853cf886db77bc482b7
