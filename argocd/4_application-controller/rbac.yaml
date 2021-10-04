@@ -65,58 +65,11 @@ rules:
     verbs:
       - '*'
   - apiGroups: 
-      - apps
-      - batch
-      - autoscaling
-      - argoproj.io
-      - networking.k8s.io
-      - apiextensions.k8s.io
-      - certificates.k8s.io
-      - snapshot.storage.k8s.io
-      - node.k8s.io
-      - migration.k8s.io
-      - scheduling.k8s.io
-      - apiregistration.k8s.io
-      - discovery.k8s.io
-      - rbac.authorization.k8s.io
-      - admissionregistration.k8s.io
-      - storage.k8s.io
-      - internal.autoscaling.k8s.io
-      - traefik.containo.us
-      - monitoring.coreos.com
-      - nodemanagement.gke.io
-      - networking.gke.io
-      - cloud.google.com
-      - crd.projectcalico.org
+      - '*'
     resources:
       - '*'
     verbs:
       - '*'
-  - apiGroups:
-      - "extensions"
-    resources:
-      - 'ingresses'
-    verbs:
-      - 'get'
-      - 'list'
-      - 'watch'
-  - apiGroups:
-      - "policy"
-    resources:
-      - 'poddisruptionbudgets'
-    verbs:
-      - '*'
-  - apiGroups:
-      - "policy"
-    resources:
-      - 'podsecuritypolicies'
-    verbs:
-      - 'list'
-      - 'get'
-      - 'delete'
-      - 'create'
-      - 'patch'
-      - 'watch'
   - nonResourceURLs:
       - '*'
     verbs:
