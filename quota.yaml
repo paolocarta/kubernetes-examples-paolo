@@ -5,5 +5,8 @@ metadata:
   namespace: namespace00
 spec:
   hard:
-    pods: '3'
+    pods: '5'
+    # requests.cpu: 5
+    # requests.memory: 5Gi
+    # requests.storage: 50Gi
 

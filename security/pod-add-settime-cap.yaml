@@ -10,6 +10,7 @@ spec:
     image: busybox:latest
     command: ["/bin/sleep", "3600"]
     securityContext:
+      runAsNonRoot: true
       capabilities:
         add:
         - SYS_TIME
