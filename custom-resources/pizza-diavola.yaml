@@ -1,4 +1,4 @@
-apiVersion: restaurant.programming-kubernetes.info/v1beta1
+apiVersion: restaurant.programming-kubernetes.info/v1
 kind: Pizza
 metadata:
   name: diavola

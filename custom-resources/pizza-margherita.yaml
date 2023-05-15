@@ -1,4 +1,4 @@
-apiVersion: restaurant.programming-kubernetes.info/v1alpha1
+apiVersion: restaurant.programming-kubernetes.info/v1
 kind: Pizza
 metadata:
   name: margherita
