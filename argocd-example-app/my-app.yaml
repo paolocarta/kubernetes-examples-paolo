@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://github.com/paolocarta/kubernetes-examples-paolo.git
     targetRevision: master
-    path: argocd-example-app
+    path: argocd-example-app/kube-manifests-app
   destination:
     name: in-cluster
-    namespace: namespace00
+    namespace: default
   syncPolicy:
     automated:
       prune: true

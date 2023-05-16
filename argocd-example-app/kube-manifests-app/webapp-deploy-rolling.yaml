@@ -9,7 +9,7 @@ kind: Deployment
 metadata:
   labels:
   name: webapp
-  namespace:
+  # namespace:
 spec:
   replicas: 4
   selector:
