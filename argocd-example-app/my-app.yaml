@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: in-cluster
+  project: default
   source:
     repoURL: https://github.com/paolocarta/kubernetes-examples-paolo.git
     targetRevision: master
