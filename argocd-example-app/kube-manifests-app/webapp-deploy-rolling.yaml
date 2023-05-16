@@ -11,7 +11,7 @@ metadata:
   name: webapp
   # namespace:
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       run: webapp
